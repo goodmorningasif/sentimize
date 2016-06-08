@@ -4,7 +4,7 @@ module.exports = {
   createSnapshot: function(req, res) {
     var data = req.body.snapshotData;
 
-    if (data.gender === undefined) {
+    if (data === undefined) {
       res.send(400).send('Snapshot failed to produce usable data.');
     }
     
