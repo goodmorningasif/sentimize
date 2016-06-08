@@ -106,10 +106,27 @@ export default class RecordView extends React.Component {
     });
   }
 
-  _endSession() {
-    console.log('Session ended.');
+  _submitText(textData) {
+    // send value from textbox under transcript
+    $.ajax({
+      type: 'POST',
+      url: '/api/text',
+      data: {'textData': textData},
+      success: function(data) {
+        console.log('textdata: ', data);
+      }.bind(this),
+      error: function(error) {
+        console.error('startRecording error', error)
+      },
+      dataType: 'json'
+    });
+  }
+
+  _endSession(e) {
     clearInterval(this.state.intervalId);
     this._calcDuration()
+
+    this._submitText(e.target.textarea.value)
 
     // Wait 2 seconds after stop button is pressed
     setTimeout(function() {
