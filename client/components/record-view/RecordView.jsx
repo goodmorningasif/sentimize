@@ -8,6 +8,8 @@ import env from './../../../env/client-config.js';
 import RecordInstructions from './record-instructions.jsx';
 import RecordQuestions from './record-questions.jsx';
 
+//var x = 0;
+
 export default class RecordView extends React.Component {
   constructor(props) {
     super(props);
@@ -15,12 +17,30 @@ export default class RecordView extends React.Component {
       sessionId: null,
       intervalId: null,
       showQuestions: false,
-      startTime: undefined
+      startTime: undefined,
+      payed: false
     }
   }
 
   componentDidMount() {
     FACE.webcam.startPlaying('webcam');
+    
+    $.ajax({
+      type: 'GET',
+      url: '/api/users',
+      success: function(user) {
+        //console.log('THE AJAX SUCCESS: ', user);
+        if (user.payed === 1) {
+          this.setState({payed: true});
+        } 
+
+      }.bind(this),
+      
+      error: function(error) {
+        console.error('User Not Found:', error)
+      }
+    });
+    
   }
 
   _createNewSession(e) {
@@ -114,7 +134,11 @@ export default class RecordView extends React.Component {
     // Wait 2 seconds after stop button is pressed
     setTimeout(function() {
       FACE.webcam.stopPlaying('webcam');
-      browserHistory.push('/reports/' + this.state.sessionId.toString());
+      if (this.state.payed) {
+        browserHistory.push('/reports/' + this.state.sessionId.toString());
+      } else {
+       browserHistory.push('/payment');
+      }
     }.bind(this), 1000)
   }
 
@@ -167,3 +191,22 @@ export default class RecordView extends React.Component {
 // <div className="pure-u-2-3 record-box">
 //           <img className='pure-u-1-2' id='current-snapshot' src=''/>
 //         </div>
+
+
+// $.ajax({
+//         type: 'GET',
+//         url: '/api/users',
+//         success: function(user) {
+//           // check if user has payed
+//           console.log('SUCCESS: ', user);
+//           if (user.payed === 1) {
+//             browserHistory.push('/reports/' + this.state.sessionId.toString());
+//           } else {
+//             browserHistory.push('/payment');
+//           }
+//         }.bind(this),
+//         error: function(error) {
+//           console.error('User Not Found:', error)
+//         },
+//         dataType: 'json'
+//       });
