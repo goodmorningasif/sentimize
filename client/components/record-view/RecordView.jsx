@@ -127,50 +127,45 @@ export default class RecordView extends React.Component {
   }
 
   _submitText(textData) {
-<<<<<<< HEAD
-=======
     var formData = {
      'textData': textData,
      'sessionId': this.state.sessionId
     }
->>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
     // send value from textbox under transcript
     $.ajax({
       type: 'POST',
       url: '/api/text',
-<<<<<<< HEAD
-      data: {'textData': textData},
-=======
       data: formData,
->>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
       success: function(data) {
         console.log('textdata: ', data);
       }.bind(this),
       error: function(error) {
-<<<<<<< HEAD
-        console.error('startRecording error', error)
-=======
         console.error('testData error', error)
->>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
       },
       dataType: 'json'
     });
   }
 
   _endSession(e) {
+    e.preventDefault();
+
     clearInterval(this.state.intervalId);
     this._calcDuration()
+
+    //get the speech to text
+    //submit that
 
     this._submitText(e.target.textarea.value)
 
     // Wait 2 seconds after stop button is pressed
     setTimeout(function() {
-      FACE.webcam.stopPlaying('webcam');
-      if (this.state.payed) {
+      var blob = FACE.webcam.stopPlaying('webcam');
+      //console.log('BLOB', blob);
+    //  if (this.state.payed) {
         browserHistory.push('/reports/' + this.state.sessionId.toString());
-      } else {
-       browserHistory.push('/payment');
-      }
+    //  } else {
+    //   browserHistory.push('/payment');
+     // }
     }.bind(this), 1000)
   }
 
