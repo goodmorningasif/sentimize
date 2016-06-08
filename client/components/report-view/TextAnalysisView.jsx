@@ -30,7 +30,7 @@ const styles = {
   }
 }
 
-export default class ChartComponentText extends React.Component {
+export default class ChartComponent extends React.Component {
 
   constructor(props) {
     super(props)
@@ -112,15 +112,15 @@ export default class ChartComponentText extends React.Component {
     })
   };
 
-  handleClick(e) { // to view text analysis visualizations
+  handleClick(e) {
     e.preventDefault();
-    browserHistory.push('reports/:sessionId');
-  }
+    browserHistory.push('/reports/' + this.props.params.sessionId.toString());
+  };
 
   render() {
     return (
       <div>
-        <button class="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View Video Analysis</button>
+        <button class="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View VIDEO Analysis</button>
         <div style={styles.graphContainer}>
           <h3>Mood Chart</h3>
           <LineChart data={this.state.mood}

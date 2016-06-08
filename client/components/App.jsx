@@ -23,8 +23,8 @@ export default class App extends React.Component {
           <IndexRoute component={HomeView} />
           <Route path="record" component={RecordView} />
           <Route path="sessions" component={SessionsView} />
+          <Route path="textAnalysis/:sessionId" component={TextAnalysisView} />
           <Route path="reports/:sessionId" component={ReportView} />
-          <Route path="reports/textAnalysis/:sessionId" component={TextAnalysisView} />
           <Route path="settings" component={SettingsView} />
           <Route path="payment" component={PaymentView} />
         </Route>

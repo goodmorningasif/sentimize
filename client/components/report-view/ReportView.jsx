@@ -114,7 +114,7 @@ export default class ChartComponent extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    browserHistory.push('reports/textAnalysis/:sessionId');
+    browserHistory.push('/textAnalysis/' + this.props.params.sessionId.toString());
   };
 
   render() {
