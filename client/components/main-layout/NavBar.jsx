@@ -2,7 +2,50 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Link } from 'react-router';
 
+import $ from 'jquery';
+import { browserHistory } from 'react-router';
+
+//var x = false;
+
 export default class NavBar extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+     payed: false 
+    }
+  }
+
+  componentDidMount() {    
+    $.ajax({
+      type: 'GET',
+      url: '/api/users',
+      success: function(user) {
+        console.log('USERinnav',user);
+        if (user.payed === 1) {
+          //x = true;
+          this.setState({payed: true});
+        } 
+      }.bind(this),
+      
+      error: function(error) {
+        console.error('User Not Found:', error)
+      }
+    });
+    
+  }
+
+  handleClick(e) {
+    console.log(e);
+    e.preventDefault();
+
+    if(this.state.payed) {
+      browserHistory.push('/sessions');
+    } else {
+      browserHistory.push('/payment');
+    }
+  }
+
   render() {
     return (
       <div className="nav-bar">
