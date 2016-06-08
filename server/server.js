@@ -27,6 +27,8 @@ require('./routes/view-routes.js')(app);
 // API Routes
 require('./routes/api-routes.js')(app);
 
+require('./routes/stripe-routes.js')(app);
+
 // Wildcard route
 app.get('/*', function(req, res) {
   res.redirect('/');

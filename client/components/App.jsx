@@ -8,6 +8,7 @@ import RecordView from './record-view/RecordView.jsx';
 import SessionsView from './sessions-view/SessionsView.jsx';
 import ReportView from './report-view/ReportView.jsx';
 import SettingsView from './settings-view/SettingsView.jsx';
+import PaymentView from './payment-view/PaymentView.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class App extends React.Component {
           <Route path="sessions" component={SessionsView} />
           <Route path="reports/:sessionId" component={ReportView} />
           <Route path="settings" component={SettingsView} />
+          <Route path="payment" component={PaymentView} />
         </Route>
       </Router>
     )
