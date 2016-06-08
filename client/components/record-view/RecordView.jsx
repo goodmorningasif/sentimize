@@ -107,16 +107,20 @@ export default class RecordView extends React.Component {
   }
 
   _submitText(textData) {
+    var formData = {
+     'textData': textData,
+     'sessionId': this.state.sessionId
+    }
     // send value from textbox under transcript
     $.ajax({
       type: 'POST',
       url: '/api/text',
-      data: {'textData': textData},
+      data: formData,
       success: function(data) {
         console.log('textdata: ', data);
       }.bind(this),
       error: function(error) {
-        console.error('startRecording error', error)
+        console.error('testData error', error)
       },
       dataType: 'json'
     });
