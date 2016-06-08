@@ -5,13 +5,16 @@ import $ from 'jquery';
 import { browserHistory } from 'react-router';
 
 
-var x = false;
+//var x = false;
 
 export default class NavBar extends React.Component {
 
-  // constructor(){
-  //   th
-  // }
+  constructor(){
+    super();
+    this.state = {
+     payed: false 
+    }
+  }
 
   componentDidMount() {    
     $.ajax({
@@ -20,7 +23,8 @@ export default class NavBar extends React.Component {
       success: function(user) {
         console.log('USERinnav',user);
         if (user.payed === 1) {
-          x = true;
+          //x = true;
+          this.setState({payed: true});
         } 
       }.bind(this),
       
@@ -35,7 +39,7 @@ export default class NavBar extends React.Component {
     console.log(e);
     e.preventDefault();
 
-    if(x) {
+    if(this.state.payed) {
       browserHistory.push('/sessions');
     } else {
       browserHistory.push('/payment');
