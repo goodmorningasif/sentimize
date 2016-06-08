@@ -127,16 +127,31 @@ export default class RecordView extends React.Component {
   }
 
   _submitText(textData) {
+<<<<<<< HEAD
+=======
+    var formData = {
+     'textData': textData,
+     'sessionId': this.state.sessionId
+    }
+>>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
     // send value from textbox under transcript
     $.ajax({
       type: 'POST',
       url: '/api/text',
+<<<<<<< HEAD
       data: {'textData': textData},
+=======
+      data: formData,
+>>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
       success: function(data) {
         console.log('textdata: ', data);
       }.bind(this),
       error: function(error) {
+<<<<<<< HEAD
         console.error('startRecording error', error)
+=======
+        console.error('testData error', error)
+>>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
       },
       dataType: 'json'
     });

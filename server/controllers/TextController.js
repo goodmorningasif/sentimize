@@ -20,29 +20,31 @@ module.exports = {
         console.log(err);
       }
       else {
-        console.log(JSON.stringify(tone, null, 2));
-        if (tone.document_tone.tone_catagories === undefined) {
-          res.send(400).send('Text failed to produce usable data.');
+        if(tone.document_tone.tone_categories === undefined) {
+          console.log('tone.document_tone: ', tone.document_tone);
+          res.send(400).send('createText failed to produce usable data.');
         }
-
+        console.log('Feelings: ', tone.document_tone.tone_categories[0].tones);
+        console.log('Speech style: ', tone.document_tone.tone_categories[1].tones);
+        console.log('Emotions: ', tone.document_tone.tone_categories[2].tones);
         var textObj = {
-          sadness: tone.document_tone.tone_catagories[0].tones[0].score,
-          anger: tone.document_tone.tone_catagories[0].tones[1].score,
-          surprise: tone.document_tone.tone_catagories[0].tones[2].score,
-          fear: tone.document_tone.tone_catagories[0].tones[3].score,
-          happiness: tone.document_tone.tone_catagories[0].tones[4].score,
-          disgust: tone.document_tone.tone_catagories[0].tones[5].score,
-          analytical: tone.document_tone.tone_catagories[1].tones[0].score,
-          confident: tone.document_tone.tone_catagories[1].tones[1].score,
-          tentative: tone.document_tone.tone_catagories[1].tones[2].score,
-    			openness: tone.document_tone.tone_catagories[2].tones[0].score,
-    			conscientiousness: tone.document_tone.tone_catagories[2].tones[1].score,
-    			extraversion: tone.document_tone.tone_catagories[2].tones[2].score,  
-    			agreeableness: tone.document_tone.tone_catagories[2].tones[3].score, 
-    			emotionalRange: tone.document_tone.tone_catagories[2].tones[4].score, 	      
+          anger: tone.document_tone.tone_categories[0].tones[0].score*100,
+          disgust: tone.document_tone.tone_categories[0].tones[1].score*100,
+          fear: tone.document_tone.tone_categories[0].tones[2].score*100,
+          happiness: tone.document_tone.tone_categories[0].tones[3].score*100,
+          sadness: tone.document_tone.tone_categories[0].tones[4].score*100,
+          analytical: tone.document_tone.tone_categories[1].tones[0].score*100,
+          confident: tone.document_tone.tone_categories[1].tones[1].score*100,
+          tentative: tone.document_tone.tone_categories[1].tones[2].score*100,
+    			openness: tone.document_tone.tone_categories[2].tones[0].score*100,
+    			conscientiousness: tone.document_tone.tone_categories[2].tones[1].score*100,
+    			extraversion: tone.document_tone.tone_categories[2].tones[2].score*100,  
+    			agreeableness: tone.document_tone.tone_categories[2].tones[3].score*100, 
+    			emotionalRange: tone.document_tone.tone_categories[2].tones[4].score*100, 	      
           userId: req.user.id, 
           sessionId: req.body.sessionId 
         }
+        console.log('textObj', textObj);
 
         return new Text(textObj).save()
         .then(function(newText) {
