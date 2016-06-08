@@ -5,7 +5,7 @@ module.exports = {
     var data = req.body.snapshotData;
 
     if (data === undefined) {
-      res.sendStatus(400, 'Snapshot failed to produce usable data.');
+      res.status(400).send('Snapshot failed to produce usable data.');
     } else {
       var snapshotObj = {
         mood: null,
@@ -32,7 +32,7 @@ module.exports = {
 
       return new Snapshot(snapshotObj).save()
         .then(function(newSnapshot) {
-          res.sendStatus(201, newSnapshot);
+          res.status(201).send(newSnapshot);
         })
         .catch(function(err) {
          console.error(err);
@@ -47,7 +47,7 @@ module.exports = {
 
     Snapshot.where(queryObj).fetchAll()
       .then(function(snapshots) {
-        res.sendStatus(200, snapshots);
+        res.status(200).send(snapshots);
       })
       .catch(function(err) {
         console.error(err);

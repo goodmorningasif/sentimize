@@ -22,7 +22,7 @@ module.exports = {
       else {
         if(tone.document_tone.tone_categories === undefined) {
           console.log('tone.document_tone: ', tone.document_tone);
-          res.sendStatus(400, 'createText failed to produce usable data.');
+          res.status(400).send('createText failed to produce usable data.');
         }
         console.log('Feelings: ', tone.document_tone.tone_categories[0].tones);
         console.log('Speech style: ', tone.document_tone.tone_categories[1].tones);
@@ -48,7 +48,7 @@ module.exports = {
 
         return new Text(textObj).save()
         .then(function(newText) {
-          res.sendStatus(201, newText);
+          res.status(201).send(newText);
         })
         .catch(function(err) {
           console.error(err);
@@ -64,7 +64,7 @@ module.exports = {
 
     Text.where(queryObj).fetchAll()
       .then(function(text) {
-        res.sendStatus(200, text);
+        res.status(200).send(text);
       })
       .catch(function(err) {
         console.error(err);
