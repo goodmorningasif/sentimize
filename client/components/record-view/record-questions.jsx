@@ -4,14 +4,12 @@ import ReactDom from 'react-dom';
 
 export default (props) => (
 	<div className="record-questions pure-u-1-1">
-		<h1>Questions</h1>
-      <ul>
-	      <li>Introduce yourself within 30 seconds.</li>
-	      <li>Tell us about a challenge you recently faced and how you resolved it.</li>
-	      <li>What are your strengths and weaknesses?</li>
-     </ul>
+		<h1>Transcript</h1>
      <div className="button-bar">
-        <button className="stop-button pure-button pure-button-error" onClick={(e) => props.clicked(e)}>Stop</button>
+       <form id="form" onSubmit={(e) => props.clicked(e)}>
+        <button type="submit" className="stop-button pure-button pure-button-error">Stop</button>
+		    <textarea rows="4" cols="20" value=" Value from textarea" form="form" id="textarea" />
+      </form>
     </div>
 	</div>
 )

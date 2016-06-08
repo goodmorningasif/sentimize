@@ -156,10 +156,15 @@ Session Overview:
 └── .eslintrc                   # ESLint settings
 ```
 
-## Team
+## BLUE Team
   - Product Owner:            Christian Haug
   - Scrum Master:             Jack Zhang
   - Development Team Members: Christian Haug, Jack Zhang, Kani Munidasa, Katherine Hao
+
+## GOLD Team
+  - Product Owner:            Tim Do
+  - Scrum Master:             Asif Ahmed
+  - Development Team Members: Tim Do, Asif Ahmed, Albert Han, Ben Roa
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
