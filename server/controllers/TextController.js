@@ -2,8 +2,8 @@ var Text = require('./../models/TextModel.js');
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  username: '0901bd8d-574f-49c5-9897-e2827231e70d',
-  password: 'lajb4FTYDp3I',
+  username: process.env.BM_USER,
+  password: process.env.BM_PASSWORD,
   version: 'v3',
   version_date: '2016-05-19'
 });
@@ -22,7 +22,7 @@ module.exports = {
       else {
         if(tone.document_tone.tone_categories === undefined) {
           console.log('tone.document_tone: ', tone.document_tone);
-          res.send(400).send('createText failed to produce usable data.');
+          res.sendStatus(400, 'createText failed to produce usable data.');
         }
         console.log('Feelings: ', tone.document_tone.tone_categories[0].tones);
         console.log('Speech style: ', tone.document_tone.tone_categories[1].tones);
@@ -48,7 +48,7 @@ module.exports = {
 
         return new Text(textObj).save()
         .then(function(newText) {
-          res.status(201).send(newText);
+          res.sendStatus(201, newText);
         })
         .catch(function(err) {
           console.error(err);
@@ -64,7 +64,7 @@ module.exports = {
 
     Text.where(queryObj).fetchAll()
       .then(function(text) {
-        res.status(200).send(text);
+        res.sendStatus(200, text);
       })
       .catch(function(err) {
         console.error(err);
