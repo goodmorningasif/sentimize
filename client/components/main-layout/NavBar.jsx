@@ -12,7 +12,7 @@ export default class NavBar extends React.Component {
   constructor(){
     super();
     this.state = {
-     payed: false 
+     payed: false // used to control access based on user payment
     }
   }
 
