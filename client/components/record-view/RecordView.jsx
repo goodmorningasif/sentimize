@@ -8,6 +8,8 @@ import env from './../../../env/client-config.js';
 import RecordInstructions from './record-instructions.jsx';
 import RecordQuestions from './record-questions.jsx';
 
+//var x = 0;
+
 export default class RecordView extends React.Component {
   constructor(props) {
     super(props);
@@ -15,12 +17,30 @@ export default class RecordView extends React.Component {
       sessionId: null,
       intervalId: null,
       showQuestions: false,
-      startTime: undefined
+      startTime: undefined,
+      payed: false
     }
   }
 
   componentDidMount() {
     FACE.webcam.startPlaying('webcam');
+    
+    $.ajax({
+      type: 'GET',
+      url: '/api/users',
+      success: function(user) {
+        //console.log('THE AJAX SUCCESS: ', user);
+        if (user.payed === 1) {
+          this.setState({payed: true});
+        } 
+
+      }.bind(this),
+      
+      error: function(error) {
+        console.error('User Not Found:', error)
+      }
+    });
+    
   }
 
   _createNewSession(e) {
@@ -107,16 +127,31 @@ export default class RecordView extends React.Component {
   }
 
   _submitText(textData) {
+<<<<<<< HEAD
+=======
+    var formData = {
+     'textData': textData,
+     'sessionId': this.state.sessionId
+    }
+>>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
     // send value from textbox under transcript
     $.ajax({
       type: 'POST',
       url: '/api/text',
+<<<<<<< HEAD
       data: {'textData': textData},
+=======
+      data: formData,
+>>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
       success: function(data) {
         console.log('textdata: ', data);
       }.bind(this),
       error: function(error) {
+<<<<<<< HEAD
         console.error('startRecording error', error)
+=======
+        console.error('testData error', error)
+>>>>>>> 6e91a03d68c012a1d6984ae26e44813cd6e8e772
       },
       dataType: 'json'
     });
@@ -131,7 +166,11 @@ export default class RecordView extends React.Component {
     // Wait 2 seconds after stop button is pressed
     setTimeout(function() {
       FACE.webcam.stopPlaying('webcam');
-      browserHistory.push('/reports/' + this.state.sessionId.toString());
+      if (this.state.payed) {
+        browserHistory.push('/reports/' + this.state.sessionId.toString());
+      } else {
+       browserHistory.push('/payment');
+      }
     }.bind(this), 1000)
   }
 
@@ -184,3 +223,22 @@ export default class RecordView extends React.Component {
 // <div className="pure-u-2-3 record-box">
 //           <img className='pure-u-1-2' id='current-snapshot' src=''/>
 //         </div>
+
+
+// $.ajax({
+//         type: 'GET',
+//         url: '/api/users',
+//         success: function(user) {
+//           // check if user has payed
+//           console.log('SUCCESS: ', user);
+//           if (user.payed === 1) {
+//             browserHistory.push('/reports/' + this.state.sessionId.toString());
+//           } else {
+//             browserHistory.push('/payment');
+//           }
+//         }.bind(this),
+//         error: function(error) {
+//           console.error('User Not Found:', error)
+//         },
+//         dataType: 'json'
+//       });

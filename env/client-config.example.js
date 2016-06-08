@@ -1,0 +1,4 @@
+export default {
+  FACE_APP_KEY: '844f7b25b10140abba72262713f56f77',
+  FACE_CLIENT_ID: '5f6959318f7e4974af4f3252816bde8e'
+}
