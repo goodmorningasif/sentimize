@@ -1,5 +1,6 @@
 var db = require('../config/db');
 var User = require('./UserModel');
+var Text = require('./TextModel.js');
 var Snapshot = require('./SnapshotModel');
 
 db.knex.schema.hasTable('sessions').then(function(exists) {
@@ -27,7 +28,10 @@ var Session = db.Model.extend({
   },
   snapshots: function() {
     return this.hasMany(Snapshot);
-  }
+  },
+  text: function() {
+    return this.hasOne(Text);
+  }  
 });
 
 module.exports = Session;

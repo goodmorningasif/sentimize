@@ -126,19 +126,46 @@ export default class RecordView extends React.Component {
     });
   }
 
-  _endSession() {
-    console.log('Session ended.');
+  _submitText(textData) {
+    var formData = {
+     'textData': textData,
+     'sessionId': this.state.sessionId
+    }
+    // send value from textbox under transcript
+    $.ajax({
+      type: 'POST',
+      url: '/api/text',
+      data: formData,
+      success: function(data) {
+        console.log('textdata: ', data);
+      }.bind(this),
+      error: function(error) {
+        console.error('testData error', error)
+      },
+      dataType: 'json'
+    });
+  }
+
+  _endSession(e) {
+    e.preventDefault();
+
     clearInterval(this.state.intervalId);
     this._calcDuration()
 
+    //get the speech to text
+    //submit that
+
+    this._submitText(e.target.textarea.value)
+
     // Wait 2 seconds after stop button is pressed
     setTimeout(function() {
-      FACE.webcam.stopPlaying('webcam');
-      if (this.state.payed) {
+      var blob = FACE.webcam.stopPlaying('webcam');
+      //console.log('BLOB', blob);
+    //  if (this.state.payed) {
         browserHistory.push('/reports/' + this.state.sessionId.toString());
-      } else {
-       browserHistory.push('/payment');
-      }
+    //  } else {
+    //   browserHistory.push('/payment');
+     // }
     }.bind(this), 1000)
   }
 
