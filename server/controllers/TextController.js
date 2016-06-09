@@ -2,8 +2,8 @@ var Text = require('./../models/TextModel.js');
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  username: '0901bd8d-574f-49c5-9897-e2827231e70d',
-  password: 'lajb4FTYDp3I',
+  username: process.env.BLUEMIX_USERNAME,
+  password: process.env.BLUEMIX_PASSWORD,
   version: 'v3',
   version_date: '2016-05-19'
 });
