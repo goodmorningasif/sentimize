@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {Line as LineChart} from 'react-chartjs';
 import {Radar as RadarChart} from 'react-chartjs';
+import {Doughnut as DoughnutChart} from 'react-chartjs';
 import {browserHistory} from 'react-router';
 
 const options = {
@@ -35,32 +36,35 @@ export default class ChartComponent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      expressions: {
-        labels: ['Sadness', 'Disgust', 'Anger', 'Surprise', 'Fear', 'Happiness'],
+      emotion: { // DONUT
+        labels: ['sadness', 'anger', 'fear', 'happiness', 'disgust'],
         datasets: [
           {
-            label: 'Expressions',
+            cutoutPercentage: '50',
+            data: []
+          }
+        ]
+      },
+      language: { // DONUT
+        labels: ['Analytical', 'Confident', 'Tentative'],
+        datasets: [
+          {
+            cutoutPercentage: '50',
+            data: []
+          }
+        ]
+      },
+      social: { // RADAR
+        labels: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Emotional Range', 'Dummy'],
+        datasets: [
+          {
+            label: 'Social Tendencies',
             backgroundColor: 'rgba(179,181,198,0.2)',
             borderColor: 'rgba(179,181,198,1)',
             pointBackgroundColor: 'rgba(179,181,198,1)',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgba(179,181,198,1)',
-            data: []
-          }
-        ]
-      },
-      mood: {
-        labels: [],
-        datasets: [
-          {
-            label: 'Mood TimeLine',
-            fillColor: 'rgba(220,220,220,0.2)',
-            strokeColor: 'rgba(220,220,220,1)',
-            pointColor: 'rgba(220,220,220,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
             data: []
           }
         ]
@@ -71,43 +75,82 @@ export default class ChartComponent extends React.Component {
   componentDidMount () {
     $.ajax({
       type: 'GET',
-      url: '/api/snapshot',
+      url: '/api/text',
       data: { sessionId: this.props.params.sessionId },
       error: function(request, status, error) {
         console.error('error while fetching report data', error);
       },
       success: function(sessionData) {
-        console.log(sessionData);
+        console.log('sD', sessionData);
+        console.log(sessionData[0]['emotionalRange']);
+        // this.setState({
+        //   // set sessionData to state key's
+        // })
 
-        var sadness = 0;
-        var disgust =0;
-        var anger = 0;
-        var surprise = 0;
-        var fear = 0;
-        var happiness = 0;
-        var dataLength = sessionData.length;
-        var moodLabel = [];
-        for (var i=1; i <= dataLength; i++) {
-          moodLabel.push(i);
+        var emotionClone = Object.assign({}, this.state.emotion);
+        console.log('eC', emotionClone);
+        console.log(this.state.emotion.labels, this.state.emotion.labels.length);
+        var emotionLabelsClone = this.state.emotion.labels.slice();
+
+        for (var i = 0; i < this.state.emotion.labels.length; i++) {
+          console.log(emotionLabelsClone);
+          var feature = emotionLabelsClone[i]
+          console.log(feature, typeof feature);
+          console.log(sessionData[0][feature]);
+          emotionClone.datasets[0]['data'].push(sessionData[0][feature])
         }
-        var moodData = Object.assign({}, this.state.mood);
-        var expressionsData = Object.assign({}, this.state.expressions);
 
-        sessionData.forEach(ss => {
-          moodData.datasets[0].data.push(ss.mood);
-          sadness += ss.sadness;
-          disgust += ss.disgust;
-          anger += ss.anger;
-          surprise += ss.surprise;
-          fear += ss.fear;
-          happiness += ss.happiness;
-        })
-        moodData.labels = moodLabel;
-        expressionsData.datasets[0].data = [Math.floor(sadness/dataLength), Math.floor(disgust/dataLength), Math.floor(anger/dataLength),
-          Math.floor(surprise/dataLength), Math.floor(fear/dataLength), Math.floor(happiness/dataLength)];
-          this.setState({expressions: expressionsData, mood: moodData});
 
-          console.log(this.state);
+        console.log('EMOTIONCLONE', emotionClone);
+
+        // need to replace state with clone
+        
+        // console.log('SESH:', sessionData);
+        // console.log('HAPPY?', sessionData[0].happiness);
+
+        // console.log('this.state.emotion.labels', this.state.emotion.labels);
+        // console.log('this.state.language.labels', this.state.language.labels);
+        // console.log('this.state.social.labels', this.state.social.labels);
+
+        // var dataGrabber = function (labels) {
+        //   var dataArr = [];
+
+        //   // var lbl = labels.pop();
+        //   // console.log('LABELS?', labels);
+        //   // console.log('TYPEOFLABELS?', Array.isArray(labels));
+        //   labels.forEach(function (feature) {
+        //     if (typeof feature === 'string') {
+        //       console.log('feat:', feature);
+        //       console.log('FROMAJAX', sessionData[0][feature]);
+        //       dataArr.push(sessionData[0][feature]);  
+        //     }
+        //   });
+        //   console.log('INDATAGRABBER:', dataArr);
+        //   return dataArr;
+        // };
+
+        // // Reminder: Need Object.assign() b/c need to modify,
+        // // otherwise using equals will only copy the reference.
+        // var emotionClone = Object.assign({}, this.state.emotion);
+        // var languageClone = Object.assign({}, this.state.language);
+        // var socialClone = Object.assign({}, this.state.social);
+
+        // // console.log('emotionClone:', emotionClone);
+        // // console.log('emotionCloneData:', emotionClone.datasets[0].data);
+        // for (var i=0; i < this.state.emotion.labels; i++) {
+        //   emotion
+        // }
+
+        // console.log('TESTING DATAGRABBER:', dataGrabber(this.state.emotion.labels));
+        // emotionClone.datasets[0].data.concat(dataGrabber(this.state.emotion.labels));
+        // languageClone.datasets[0].data.concat(dataGrabber(this.state.language.labels));
+        // socialClone.datasets[0].data.concat(dataGrabber(this.state.labels));
+
+        // this.setState({
+        //   emotion: emotionClone,
+        //   language: languageClone,
+        //   social: socialClone
+        // });
       }.bind(this)
     })
   };
@@ -122,17 +165,26 @@ export default class ChartComponent extends React.Component {
       <div>
         <button class="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View VIDEO Analysis</button>
         <div style={styles.graphContainer}>
-          <h3>Mood Chart</h3>
-          <LineChart data={this.state.mood}
-            redraw options={options}
-            width="600" height="250"/>
+          <h3>Emotional Analysis</h3>
+          <DoughnutChart data={this.state.emotion} 
+                 redraw options={options}
+                 width="600" height="250"/>
         </div>
-        <div style={styles.graphContainer}>
-          <h3>Expressions Chart</h3>
-          <RadarChart data={this.state.expressions}
-            redraw options={options}
-            width="600" height="250"/>
-        </div>
+{
+        // <div style={styles.graphContainer}>
+        //   <h3>Language Style</h3>
+        //   <DoughnutChart data={this.state.language} 
+        //          redraw options={options}
+        //          width="600" height="250"/>
+        // </div>
+
+        // <div style={styles.graphContainer}>
+        //   <h3>Social Tendencies</h3>
+        //   <RadarChart data={this.state.social} 
+        //          redraw options={options}
+        //          width="600" height="250"/>
+        // </div>
+}
       </div>
     )
   }

@@ -24,6 +24,8 @@ db.knex.schema.hasTable('text').then(function(exists){
 			text.integer('extraversion');  
 			text.integer('agreeableness'); 
 			text.integer('emotionalRange'); 		
+
+      // DB info
       text.integer('userId');
       text.integer('sessionId');
       text.timestamps();
