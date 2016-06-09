@@ -2,8 +2,8 @@ var Text = require('./../models/TextModel.js');
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  username: process.env.BM_USERNAME,
-  password: process.env.BM_PASSWORD,
+  username: process.env.TONE_USERNAME,
+  password: process.env.TONE_PASSWORD,
   version: 'v3',
   version_date: '2016-05-19'
 });
