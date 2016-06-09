@@ -183,7 +183,11 @@ export default class ChartComponent extends React.Component {
   render() {
     return (
       <div>
-        <button class="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View VIDEO Analysis</button>
+        <span>
+          <button style={{marginRight: '5px'}} className="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View Text Analysis</button>
+          <button style={{marginRight: '5px'}} className="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View Performance Analysis</button>
+          <button style={{marginRight: '5px'}} className="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View Concept Insights</button>
+        </span>
         <div style={styles.graphContainer}>
           <h3>Emotional Analysis</h3>
           <DoughnutChart 
