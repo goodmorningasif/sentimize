@@ -4,16 +4,10 @@ block styles
   link(rel='stylesheet', href='style/welcome.css')
 
 block content
-  script.
-    $('.start-button').on('click', function(e){
-      e.preventDefault();
-      //$('.welcome-container').stop(true,true).animate({right:'-=600',opacity:'hide'},1000);
-      $('.welcome-container').delay(3000).fadeOut("slow");
-    })
   div.upper-container
   img.brain(src='images/img.jpg')
   div.welcome-container   
-    h1.title symantixs
-    h4.subtitle Human emotion analysis during video recording
+    h1.title symantix
+    h4.subtitle Dynamic Speech and Text Analysis Tool
     div.button-container
       a.pure-button.start-button(href='login') Get started

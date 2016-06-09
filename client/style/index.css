@@ -55,6 +55,11 @@
   margin: 0px;
   width: 50%;
 }
+.pure-menu-link-pay:hover {
+  color: #2d3e50;
+  background-color: rgb(200, 220, 235);
+}
+
 .hideWidth {
   width: 0%;
 }
