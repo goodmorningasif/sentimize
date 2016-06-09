@@ -1,3 +1,5 @@
+var db = require('../config/db.js');
+var Snapshot = require('../models/SnapshotModel.js');
 var Session = require('../models/SessionModel.js');
 var moment = require('moment');
 
@@ -51,6 +53,24 @@ module.exports = {
       })
       .catch(function(err) {
         console.log('Error in updating session', err)
+      })
+  },
+
+  deleteSession: function(req, res) {
+    var sessionId = req.body.sessionId;
+    return Session.forge({id: sessionId})
+      .fetch()
+      .then(function(found) {
+        found.destroy();
+        Snapshot.where('sessionId', sessionId)
+          .fetchAll()
+          .then(function(val) {
+            console.log(val + ' rows deleted');
+          })
+        res.send(found);
+      })
+      .catch(function(err) {
+        console.log('Deletion error:', err)
       })
   }
 }

@@ -12,20 +12,24 @@ export default class SessionEntry extends React.Component {
 
   render() {
     return (
-      <div className="session-entry-block" onClick={this.showSessionReport.bind(this)}>
-        <div className="session-entry-title">{this.props.entry.title}</div>
-        <div className="session-entry-description">{this.props.entry.description}</div>
-        <div className="session-entry-subject">
-          <span className="label">Subject: </span>
-          <span className="value">{this.props.entry.subject}</span>
-        </div>
-        <div className="session-entry-date">
-          <span className="label">Date: </span>
-          <span className="value">{this.props.entry.date}</span>
-        </div>
-        <div className="session-entry-duration">
-          <span className="label">Duration: </span>
-          <span className="value">{this.props.entry.duration} seconds</span>
+      <div>
+        <a className="session-remove" onClick={this.props.removeSession}>
+        </a>
+        <div className="session-entry-block" onClick={this.showSessionReport.bind(this)}>
+          <div className="session-entry-title">{this.props.entry.title}</div>
+          <div className="session-entry-description">{this.props.entry.description}</div>
+          <div className="session-entry-subject">
+            <span className="label">Subject: </span>
+            <span className="value">{this.props.entry.subject}</span>
+          </div>
+          <div className="session-entry-date">
+            <span className="label">Date: </span>
+            <span className="value">{this.props.entry.date}</span>
+          </div>
+          <div className="session-entry-duration">
+            <span className="label">Duration: </span>
+            <span className="value">{this.props.entry.duration} seconds</span>
+          </div>
         </div>
       </div>
     )

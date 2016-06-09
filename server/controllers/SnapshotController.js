@@ -35,7 +35,7 @@ module.exports = {
           res.status(201).send(newSnapshot);
         })
         .catch(function(err) {
-         console.error(err);
+         console.error('SnapshotError', err);
         });
     }
   },
