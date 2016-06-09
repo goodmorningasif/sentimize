@@ -33,7 +33,10 @@ body {
 }
 
 .brain {
-  width: 300px
+  width: auto;
+  height: 100vh;
+  float: left;
+
 }
 
 h1.title {
@@ -57,6 +60,10 @@ div.welcome-container {
   -webkit-transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
+}
+div.upper-container {
+  position: absolute;
+
 }
 
 a.start-button {
