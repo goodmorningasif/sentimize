@@ -178,7 +178,7 @@ export default class ChartComponent extends React.Component {
           <button style={{marginRight: '5px'}} className="pure-button pure-button-active" onClick={this.handleConceptClick.bind(this)}>View Concept Insights</button>
         </span>
         <div style={styles.graphContainer}>
-          <h3>Emotional Analysis</h3>
+          <h3>Concept Insight</h3>
           <DoughnutChart data={this.state.emotion} 
                  redraw options={options}
                  width="600" height="250"/>
@@ -202,4 +202,3 @@ export default class ChartComponent extends React.Component {
     )
   }
 }
-

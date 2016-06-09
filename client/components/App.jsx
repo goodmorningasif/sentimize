@@ -10,6 +10,7 @@ import ReportView from './report-view/ReportView.jsx';
 import SettingsView from './settings-view/SettingsView.jsx';
 import PaymentView from './payment-view/PaymentView.jsx';
 import TextAnalysisView from './report-view/TextAnalysisView.jsx';
+import ConceptView from './report-view/ConceptView.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class App extends React.Component {
           <Route path="sessions" component={SessionsView} />
           <Route path="textAnalysis/:sessionId" component={TextAnalysisView} />
           <Route path="reports/:sessionId" component={ReportView} />
+          <Route path="concepts/:sessionId" component={ConceptView} />
           <Route path="settings" component={SettingsView} />
           <Route path="payment" component={PaymentView} />
         </Route>
