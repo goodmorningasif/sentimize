@@ -110,7 +110,6 @@ export default class ChartComponent extends React.Component {
       },
       success: function(sessionData) {
         console.log('sD', sessionData);
-        console.log('ANALYTICAL', sessionData[0]['analytical']);
 
         // clones of state
         var emotionClone = Object.assign({}, this.state.emotion);
@@ -140,16 +139,12 @@ export default class ChartComponent extends React.Component {
         }
 
         // setting state to new 
-        this.setState({
-          social: socialClone
-        });
-
-        console.log('EMOTIONCLONE', emotionClone);
-        console.log('this.state.emotion', this.state.emotion);
+        // radar chart's data is handled differently, so I've
+        // separated it out here
+        this.setState({social: socialClone});
 
         var emotionData=[];
         var languageData = [];
-        // var socialData = [];
 
         // populating emotion data for the chart
         for (var i = 0; i < this.state.emotion.labels.length; i++) {
@@ -170,77 +165,12 @@ export default class ChartComponent extends React.Component {
           }
           languageData.push(dataPoint);
         }
-        console.log('LANGUAGEDATA', languageData);
 
-        // // populating social data for the chart
-        // // data format is expected to be:
-        // // 
-        // for (var i = 0; i < this.state.social.labels.length; i++) {
-        //   // populating social data for the chart
-        //   var dataPoint = {
-        //     color: this.state.social.datasets[0].backgroundColor[i],
-        //     label: this.state.social.labels[i],
-        //     value: this.state.social.datasets[0].data[i]
-        //   }
-        //   socialData.push(dataPoint);
-        // }
-
-        // setting data
+        // setting data for emotion and language analysis
         this.setState({
           emoData: emotionData,
           langData: languageData
         })
-
-        // console.log(emotionData);
-
-        // need to replace state with clone
-        
-        // console.log('SESH:', sessionData);
-        // console.log('HAPPY?', sessionData[0].happiness);
-
-        // console.log('this.state.emotion.labels', this.state.emotion.labels);
-        // console.log('this.state.language.labels', this.state.language.labels);
-        // console.log('this.state.social.labels', this.state.social.labels);
-
-        // var dataGrabber = function (labels) {
-        //   var dataArr = [];
-
-        //   // var lbl = labels.pop();
-        //   // console.log('LABELS?', labels);
-        //   // console.log('TYPEOFLABELS?', Array.isArray(labels));
-        //   labels.forEach(function (feature) {
-        //     if (typeof feature === 'string') {
-        //       console.log('feat:', feature);
-        //       console.log('FROMAJAX', sessionData[0][feature]);
-        //       dataArr.push(sessionData[0][feature]);  
-        //     }
-        //   });
-        //   console.log('INDATAGRABBER:', dataArr);
-        //   return dataArr;
-        // };
-
-        // // Reminder: Need Object.assign() b/c need to modify,
-        // // otherwise using equals will only copy the reference.
-        // var emotionClone = Object.assign({}, this.state.emotion);
-        // var languageClone = Object.assign({}, this.state.language);
-        // var socialClone = Object.assign({}, this.state.social);
-
-        // // console.log('emotionClone:', emotionClone);
-        // // console.log('emotionCloneData:', emotionClone.datasets[0].data);
-        // for (var i=0; i < this.state.emotion.labels; i++) {
-        //   emotion
-        // }
-
-        // console.log('TESTING DATAGRABBER:', dataGrabber(this.state.emotion.labels));
-        // emotionClone.datasets[0].data.concat(dataGrabber(this.state.emotion.labels));
-        // languageClone.datasets[0].data.concat(dataGrabber(this.state.language.labels));
-        // socialClone.datasets[0].data.concat(dataGrabber(this.state.labels));
-
-        // this.setState({
-        //   emotion: emotionClone,
-        //   language: languageClone,
-        //   social: socialClone
-        // });
       }.bind(this)
     })
   };
@@ -258,7 +188,9 @@ export default class ChartComponent extends React.Component {
           <h3>Emotional Analysis</h3>
           <DoughnutChart 
             data={this.state.emoData}
-            redraw options={options}
+            redraw
+            options={options}
+            generateLegend
             width="600" height="250"/>
         </div>
         <div style={styles.graphContainer}>
