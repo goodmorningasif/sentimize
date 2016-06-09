@@ -133,6 +133,7 @@ var FACE = (function() {
                        video.src = null;
 
                      //console.log('THE BLOOOOOB', blob);
+                     
                     // return blob;
                    },
 

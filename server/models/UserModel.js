@@ -1,40 +1,21 @@
 var db = require('../config/db');
-var Snapshot = require('./SnapshotModel.js');
-var Session = require('./SessionModel.js');
-var Text = require('./TextModel.js');
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
-
-db.knex.schema.hasTable('users').then(function(exists) {
-  if (!exists) {
-    db.knex.schema.createTable('users', function (user) {
-      user.increments('id').primary();
-      user.string('email', 255).unique();
-      user.string('password', 255);
-      user.string('gender', 1);
-      user.integer('age');
-      user.string('ethnicity', 255);
-      user.string('firstName', 255);
-      user.string('lastName', 255);
-      user.boolean('payed');
-      user.timestamps();
-    }).then(function (table) {
-      console.log('Created Table', table);
-    });
-  }
-});
+require('./SnapshotModel.js');
+require('./SessionModel.js');
+require('./TextModel.js');
 
 var User = db.Model.extend({
   tableName: 'users',
   hasTimestamps: true,
   snapshots: function() {
-    return this.hasMany(Snapshot);
+    return this.hasMany('Snapshot');
   },
   text: function() {
-    return this.hasMany(Text);
+    return this.hasMany('Text');
   },
   sessions: function() {
-    return this.hasMany(Session);
+    return this.hasMany('Session');
   },
 
   initialize: function() {
@@ -57,4 +38,4 @@ var User = db.Model.extend({
 
 });
 
-module.exports = User;
+module.exports = db.model('User', User);
