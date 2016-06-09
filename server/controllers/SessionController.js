@@ -1,4 +1,4 @@
-var db = ('../config/db.js');
+var db = require('../config/db.js');
 var Snapshot = require('../models/SnapshotModel.js');
 var Session = require('../models/SessionModel.js');
 var moment = require('moment');
@@ -58,19 +58,19 @@ module.exports = {
 
   deleteSession: function(req, res) {
     var sessionId = req.body.sessionId;
-    Session.forge({id: sessionId})
+    return Session.forge({id: sessionId})
       .fetch()
       .then(function(found) {
-        console.log(found.snapshots())
-        res.status(200).send(found);
+        found.destroy();
+        Snapshot.where('sessionId', sessionId)
+          .fetchAll()
+          .then(function(val) {
+            console.log(val + ' rows deleted');
+          })
+        res.send(found);
       })
-      // .del()
-      // .then(function(removedSession) {
-      //   console.log('Removed session', removedSession)
-      //   res.status(201).send(removedSession);
-      // })
-      // .catch(function(err) {
-      //   console.log('Error in deleting session', err)
-      // })
+      .catch(function(err) {
+        console.log('Deletion error:', err)
+      })
   }
 }
