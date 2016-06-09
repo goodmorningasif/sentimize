@@ -24,8 +24,7 @@ export default class PaymentView extends React.Component {
       data: {stripeToken: token},
       url: '/api/stripe',
       success: function(data) {
-        // console.log(data);
-        callback(data);
+        // do nothing
       },
       error: function(err) {
         console.error('_getCurrentUser error', err);

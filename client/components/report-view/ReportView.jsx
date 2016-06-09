@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import {Line as LineChart} from 'react-chartjs';
 import {Radar as RadarChart} from 'react-chartjs';
+import {browserHistory} from 'react-router';
 
 const options = {
   scaleShowGridLines: true,
@@ -76,7 +77,7 @@ export default class ChartComponent extends React.Component {
         console.error('error while fetching report data', error);
       },
       success: function(sessionData) {
-        console.log(sessionData);
+        // console.log(sessionData);
 
         var sadness = 0;
         var disgust =0;
@@ -106,23 +107,31 @@ export default class ChartComponent extends React.Component {
           Math.floor(surprise/dataLength), Math.floor(fear/dataLength), Math.floor(happiness/dataLength)];
           this.setState({expressions: expressionsData, mood: moodData});
 
-          console.log(this.state);
+          // console.log(this.state);
       }.bind(this)
     })
+  };
+
+  handleClick(e) {
+    e.preventDefault();
+    browserHistory.push('/textAnalysis/' + this.props.params.sessionId.toString());
   };
 
   render() {
     return (
       <div>
+        <button class="pure-button pure-button-active" onClick={this.handleClick.bind(this)}>View Text Analysis</button>
         <div style={styles.graphContainer}>
           <h3>Mood Chart</h3>
-          <LineChart data={this.state.mood}
+          <LineChart 
+            data={this.state.mood}
             redraw options={options}
             width="600" height="250"/>
         </div>
         <div style={styles.graphContainer}>
           <h3>Expressions Chart</h3>
-          <RadarChart data={this.state.expressions}
+          <RadarChart 
+            data={this.state.expressions}
             redraw options={options}
             width="600" height="250"/>
         </div>

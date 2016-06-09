@@ -14,7 +14,7 @@ exports.chargeCard = function(req, res) {
   var charge = stripe.charges.create({
   amount: 1000, // amount in cents, again
   currency: "usd",
-  source: stripeToken,
+  source: stripeToken.id, // read the docs. Trust.
   description: "Example charge"
   }, function(err, charge) {
     if (err && err.type === 'StripeCardError') {

@@ -7,7 +7,6 @@ module.exports = {
     if (data === undefined) {
       res.status(400).send('Snapshot failed to produce usable data.');
     } else {
-
       var snapshotObj = {
         mood: null,
         'gender-c': data.gender.confidence,

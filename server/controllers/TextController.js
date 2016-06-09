@@ -2,8 +2,8 @@ var Text = require('./../models/TextModel.js');
 var watson = require('watson-developer-cloud');
 
 var tone_analyzer = watson.tone_analyzer({
-  username: process.env.BLUEMIX_USERNAME,
-  password: process.env.BLUEMIX_PASSWORD,
+  username: process.env.BM_USER,
+  password: process.env.BM_PASSWORD,
   version: 'v3',
   version_date: '2016-05-19'
 });
@@ -22,7 +22,7 @@ module.exports = {
       else {
         if(tone.document_tone.tone_categories === undefined) {
           console.log('tone.document_tone: ', tone.document_tone);
-          res.send(400).send('createText failed to produce usable data.');
+          res.status(400).send('createText failed to produce usable data.');
         }
         console.log('Feelings: ', tone.document_tone.tone_categories[0].tones);
         console.log('Speech style: ', tone.document_tone.tone_categories[1].tones);
