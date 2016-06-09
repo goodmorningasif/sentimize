@@ -113,7 +113,7 @@ var FACE = (function() {
                          }
                         
                          video.play();
-                        // captureAudioData(stream);
+                         // captureAudioData(stream);
                        },
                        function( err ) {
                          console.log( "An error occured! " + err );
@@ -133,8 +133,7 @@ var FACE = (function() {
                        video.src = null;
 
                      //console.log('THE BLOOOOOB', blob);
-                     
-                    // return blob;
+                     // return blob;
                    },
 
                    takePicture : function( videoTagID, imageTagID ) {
