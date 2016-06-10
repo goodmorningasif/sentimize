@@ -70,7 +70,7 @@ export default class NavBar extends React.Component {
     return (
       <div className="nav-bar">
         <div className="pure-menu-heading">
-          <Link className="home-link" to="/">Sentimize</Link>
+          <Link className="home-link" to="/">Symantix</Link>
         </div>
 
         <div className="pure-menu pure-menu-horizontal pure-menu-fixed">
@@ -80,7 +80,7 @@ export default class NavBar extends React.Component {
             <li className="pure-menu-item"><StripeCheckout
               token={this.onToken}
               stripeKey="pk_test_Wi3cFI9Ey84WfuWqHOHIOYFJ"
-              name="Sentimize Inc."
+              name="Symantixs Inc."
               image="https://rebel-performance.com/wp-content/uploads/2015/02/blue_brain.jpg"
               description="Analytics Suite"
               panelLabel="Total: "

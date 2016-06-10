@@ -8,7 +8,6 @@ import RecordView from './record-view/RecordView.jsx';
 import SessionsView from './sessions-view/SessionsView.jsx';
 import ReportView from './report-view/ReportView.jsx';
 import SettingsView from './settings-view/SettingsView.jsx';
-import PaymentView from './payment-view/PaymentView.jsx';
 import TextAnalysisView from './report-view/TextAnalysisView.jsx';
 
 export default class App extends React.Component {
@@ -26,7 +25,6 @@ export default class App extends React.Component {
           <Route path="textAnalysis/:sessionId" component={TextAnalysisView} />
           <Route path="reports/:sessionId" component={ReportView} />
           <Route path="settings" component={SettingsView} />
-          <Route path="payment" component={PaymentView} />
         </Route>
       </Router>
     )
