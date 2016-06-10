@@ -13,7 +13,6 @@ var speech = new Speech.SpeechToText({
   watsonTokenUrl: '/api/speech-to-text/token'
 });
 
-var x = '';
 
 export default class RecordView extends React.Component {
   constructor(props) {
@@ -30,6 +29,7 @@ export default class RecordView extends React.Component {
 
   _listen() {
     var that = this;
+    var x = '';
     var y = '';
     speech.listen({
       onStart: function() {
@@ -199,7 +199,7 @@ export default class RecordView extends React.Component {
 
     // Wait 2 seconds after stop button is pressed
     setTimeout(function() {
-      var blob = FACE.webcam.stopPlaying('webcam');
+      FACE.webcam.stopPlaying('webcam');
       //console.log('BLOB', blob);
     //  if (this.state.payed) {
         browserHistory.push('/reports/' + this.state.sessionId.toString());
