@@ -1,4 +1,4 @@
-// var Concept = require('./..models/ConceptModel.js');
+var Concept = require('../models/ConceptModel.js');
 var watson = require('watson-developer-cloud');
 
 var dummyText = " Why would politicians want to change a system that's totally rigged in order to keep them in power? That's what they're doing, folks. Why would politicians want to change a system that's made them and their friends very, very wealthy? I beat a rigged system, by winning with overwhelming support. The only way you could have done it. Landslides all over the country, with every demographic on track to win 37 primary caucus victories in a field that began with 17 very talented people. After years of disappointment, there's one thing we all have learned. We can't fix the rigged system by relying on — and I mean this so, so strongly — the very people who rigged it. And they rigged it. And do not ever think anything differently. We can't solve our problems by counting on the politicians who created our problems. The Clintons have turned the politics of personal enrichment into an art form for themselves. They've made hundreds of millions of dollars selling access, selling favors, selling government contracts, and I mean hundreds of millions of dollars. Secretary Clinton even did all of the work on a totally illegal private server. Something that how she's getting away with nobody understands. Designed to keep her corrupt dealings out of the public record, putting the security of the entire country at risk, and a president in a corrupt system is totally protecting her. Not right."
@@ -25,12 +25,43 @@ module.exports = {
 		    console.log('concept err: ', err);
 		  else {
 		  	console.log('------------');
-		    console.log('concept data concept: ', concept.annotations[0].concept);
+		    console.log('concept data concept: ', concept.annotations);
 		    console.log('concept data text index: ', concept.annotations[0]['text_index']);
 		    console.log('------------');
 		    // input into mode here
-		  }
+
+
+		    for ( var i = 0; i < concept.annotations.length; i++ ) {
+		    	var conceptObj = {
+			    	concept: JSON.stringify(concept.annotations[i].concept),
+			    	score: concept.annotations[i].concept.score,
+			    	text_index:  JSON.stringify(concept.annotations[i]['text_index']),
+	          userId: req.user.id, 
+	          sessionId: req.body.sessionId 
+		    	}
+			    console.log('conceptObj ', conceptObj);
+
+	        new Concept(conceptObj).save()
+	        .then(function(newConcept) {
+	          res.status(201).send();
+	        })
+	        .catch(function(err) {
+	          console.error(err);
+	        });
+			  }
+		   }
 		});
+
+		    // var conceptObj = {
+		    // 	concepts: JSON.stringify(concepts),
+		    // 	scores: JSON.stringify(scores),
+		    // 	text_indices: JSON.stringify(text_indices),
+      //     userId: req.user.id, 
+      //     sessionId: req.body.sessionId 
+		    // }
+
+
+
 
 	},
 	getConcepts: function(req, res) {
