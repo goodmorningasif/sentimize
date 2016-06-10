@@ -13,7 +13,6 @@ var speech = new Speech.SpeechToText({
   watsonTokenUrl: '/api/speech-to-text/token'
 });
 
-
 export default class RecordView extends React.Component {
   constructor(props) {
     super(props);

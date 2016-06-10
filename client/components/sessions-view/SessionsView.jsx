@@ -33,6 +33,27 @@ export default class SessionsView extends React.Component {
     });
   }
 
+  clickHandler(id) {
+    $.ajax({
+      method: 'POST',
+      url: '/api/session/delete',
+      data: {
+        sessionId: id
+      },
+      success: function(data) {
+        console.log('Successful removal of session:', data);
+        console.log(this);
+        this._getSessions(function(data) {
+          this.setState({ sessionEntries: data });
+        }.bind(this));
+      }.bind(this),
+      error: function(error) {
+        console.error('_removeSessions Error:', error);
+      },
+      dataType: 'json'
+    });
+  }
+
   render() {
     return (
       <div className="view sessions-view">
@@ -41,7 +62,7 @@ export default class SessionsView extends React.Component {
           {this.state.sessionEntries.map(
             entry => (
               <div className="pure-u-1-3">
-                <SessionEntry entry={entry} sessionId={entry.id} />
+                <SessionEntry entry={entry} sessionId={entry.id} removeSession={this.clickHandler.bind(this, entry.id)} />
               </div>
             )
           )}
