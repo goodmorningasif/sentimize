@@ -75,9 +75,12 @@ div.welcome-container {
   -moz-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
 }
+.test {
+
+}
+
 div.upper-container {
   position: absolute;
-
 }
 
 a.start-button {

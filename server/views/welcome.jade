@@ -6,6 +6,30 @@ block styles
 block content
   div.upper-container
   img.brain(src='images/img.jpg')
+  script.
+    $(document).ready(function(){
+         $(".start-button").click(function() {
+           //-  $(".welcome-container").animate({
+           //- //   opacity: 0,
+           //-    right: '100%'
+           //-  }, 40, function() {
+           //-    // Animation complete.
+           //-  });
+           $('.welcome-container').toggleClass('test');
+            //- $(".subtitle").animate({
+            //-   opacity: 0,
+            //-   left: '100%'
+            //- }, 40, function() {
+            //-   // Animation complete.
+            //- });
+            //- $(".button-container").animate({
+            //-   opacity: 0,
+            //-   right: '100%'
+            //- }, 40, function() {
+            //-   // Animation complete.
+            //- });
+         });
+       });
   div.welcome-container   
     h1.title symantix
     h4.subtitle Dynamic Speech and Text Analysis Tool
