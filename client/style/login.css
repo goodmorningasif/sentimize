@@ -67,5 +67,13 @@ a.signup-link:hover {
   color: #FFFFFF;
 }
 
+div.upper-container {
+  position: absolute;
+}
 
+.brain {
+  width: auto;
+  height: 100vh;
+  float: left;
+}
 
