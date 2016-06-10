@@ -23,11 +23,7 @@ module.exports = {
 		concept_insights.graphs.annotateText(params, function(err, concept) {
 		  if (err)
 		    console.log('concept err: ', err);
-		  else {
-		  	console.log('------------');
-		    console.log('concept data concept: ', concept.annotations);
-		    console.log('concept data text index: ', concept.annotations[0]['text_index']);
-		    console.log('------------');
+		    console.log('concept: ', concept.annotations);
 		    // input into mode here
 
 
@@ -49,20 +45,7 @@ module.exports = {
 	          console.error(err);
 	        });
 			  }
-		   }
 		});
-
-		    // var conceptObj = {
-		    // 	concepts: JSON.stringify(concepts),
-		    // 	scores: JSON.stringify(scores),
-		    // 	text_indices: JSON.stringify(text_indices),
-      //     userId: req.user.id, 
-      //     sessionId: req.body.sessionId 
-		    // }
-
-
-
-
 	},
 	getConcepts: function(req, res) {
 		var queryObj = {
@@ -76,7 +59,6 @@ module.exports = {
 		  .catch(function(err) {
 		  	console.error(err);
 		  });
-
 	}
 
 }
